@@ -8,6 +8,15 @@
 #include "DamageableCharacterBase.generated.h"
 
 //Forward Declaration
+UENUM(BlueprintType)
+enum EAIState
+{
+	None UMETA(DisplayName="None"),
+	Idle UMETA(DisplayName = "Idle"),
+	Angry UMETA(DisplayName = "Patrol"),
+	
+};
+
 class UDamageSystemComponent;
 
 UCLASS()
@@ -33,7 +42,8 @@ protected:
 	UFUNCTION(BlueprintNativeEvent)
 	void RespondToDeath();
 	
-
+	//AI
+	EAIState AIState = EAIState::Idle;
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -48,6 +58,13 @@ public:
 	virtual bool GetIsDead_Implementation() override;
 	virtual void Health_Implementation(float HealAmount, AActor* Healer) override;
 	virtual bool TakeDamage_Implementation(const FDamageInfo& DamageInfo) override;
+	
+	UFUNCTION(BlueprintCallable)
+	void SetAIState(EAIState NewState);
+	
+	//AI
+	UFUNCTION(BlueprintPure)
+	EAIState GetAIState() const {return AIState;}
 	
 	//Damage System Component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

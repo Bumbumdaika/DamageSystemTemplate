@@ -15,6 +15,12 @@ ADamageableCharacterBase::ADamageableCharacterBase()
 	DamageSystemComponent=CreateDefaultSubobject<UDamageSystemComponent>(TEXT("Damage System Component"));
 }
 
+void ADamageableCharacterBase::SetAIState(EAIState NewState)
+{
+	AIState = NewState;
+}
+
+
 // Called when the game starts or when spawned
 void ADamageableCharacterBase::BeginPlay()
 {
